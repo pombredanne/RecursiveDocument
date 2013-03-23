@@ -18,6 +18,7 @@ import textwrap
 
 from recdoc import *
 
+
 class WrappingTestCase(unittest.TestCase):
     __lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis nisi vel nibh luctus sit amet semper tellus gravida. Proin lorem libero, aliquet vitae suscipit ac, egestas sit amet velit. In justo nisi, porttitor vel fermentum id, feugiat eget eros. Nullam vulputate risus tempor odio suscipit sit amet ornare est rhoncus. Vestibulum malesuada mattis sollicitudin. Duis ac lectus ac neque semper euismod imperdiet nec eros. Ut ac odio libero. Morbi a diam quis libero volutpat euismod. Etiam gravida fringilla erat quis facilisis. Morbi venenatis malesuada dapibus. Phasellus libero dui, congue a tincidunt ut, cursus in risus. Ut sapien sapien, scelerisque at hendrerit sed, vestibulum a sem. Sed vitae odio vel est aliquam suscipit ut gravida quam. Morbi a faucibus ipsum. In eros orci, feugiat et scelerisque non, faucibus et eros."
     __shortLorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis nisi vel nibh"
@@ -32,21 +33,23 @@ class WrappingTestCase(unittest.TestCase):
         self.assertEqual(
             self.doc.format(),
             # 70 chars ###########################################################
-            textwrap.dedent("""\
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-            facilisis nisi vel nibh luctus sit amet semper tellus gravida. Proin
-            lorem libero, aliquet vitae suscipit ac, egestas sit amet velit. In
-            justo nisi, porttitor vel fermentum id, feugiat eget eros. Nullam
-            vulputate risus tempor odio suscipit sit amet ornare est rhoncus.
-            Vestibulum malesuada mattis sollicitudin. Duis ac lectus ac neque
-            semper euismod imperdiet nec eros. Ut ac odio libero. Morbi a diam
-            quis libero volutpat euismod. Etiam gravida fringilla erat quis
-            facilisis. Morbi venenatis malesuada dapibus. Phasellus libero dui,
-            congue a tincidunt ut, cursus in risus. Ut sapien sapien, scelerisque
-            at hendrerit sed, vestibulum a sem. Sed vitae odio vel est aliquam
-            suscipit ut gravida quam. Morbi a faucibus ipsum. In eros orci,
-            feugiat et scelerisque non, faucibus et eros.
-            """)
+            textwrap.dedent(
+                """\
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+                facilisis nisi vel nibh luctus sit amet semper tellus gravida. Proin
+                lorem libero, aliquet vitae suscipit ac, egestas sit amet velit. In
+                justo nisi, porttitor vel fermentum id, feugiat eget eros. Nullam
+                vulputate risus tempor odio suscipit sit amet ornare est rhoncus.
+                Vestibulum malesuada mattis sollicitudin. Duis ac lectus ac neque
+                semper euismod imperdiet nec eros. Ut ac odio libero. Morbi a diam
+                quis libero volutpat euismod. Etiam gravida fringilla erat quis
+                facilisis. Morbi venenatis malesuada dapibus. Phasellus libero dui,
+                congue a tincidunt ut, cursus in risus. Ut sapien sapien, scelerisque
+                at hendrerit sed, vestibulum a sem. Sed vitae odio vel est aliquam
+                suscipit ut gravida quam. Morbi a faucibus ipsum. In eros orci,
+                feugiat et scelerisque non, faucibus et eros.
+                """
+            )
         )
 
     def testParagraphInSubSection(self):
@@ -54,24 +57,26 @@ class WrappingTestCase(unittest.TestCase):
         self.assertEqual(
             self.doc.format(),
             # 70 chars ###########################################################
-            textwrap.dedent("""\
-            Section:
-              Sub-section:
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque facilisis nisi vel nibh luctus sit amet semper tellus
-                gravida. Proin lorem libero, aliquet vitae suscipit ac, egestas
-                sit amet velit. In justo nisi, porttitor vel fermentum id, feugiat
-                eget eros. Nullam vulputate risus tempor odio suscipit sit amet
-                ornare est rhoncus. Vestibulum malesuada mattis sollicitudin. Duis
-                ac lectus ac neque semper euismod imperdiet nec eros. Ut ac odio
-                libero. Morbi a diam quis libero volutpat euismod. Etiam gravida
-                fringilla erat quis facilisis. Morbi venenatis malesuada dapibus.
-                Phasellus libero dui, congue a tincidunt ut, cursus in risus. Ut
-                sapien sapien, scelerisque at hendrerit sed, vestibulum a sem. Sed
-                vitae odio vel est aliquam suscipit ut gravida quam. Morbi a
-                faucibus ipsum. In eros orci, feugiat et scelerisque non, faucibus
-                et eros.
-            """)
+            textwrap.dedent(
+                """\
+                Section:
+                  Sub-section:
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Pellentesque facilisis nisi vel nibh luctus sit amet semper tellus
+                    gravida. Proin lorem libero, aliquet vitae suscipit ac, egestas
+                    sit amet velit. In justo nisi, porttitor vel fermentum id, feugiat
+                    eget eros. Nullam vulputate risus tempor odio suscipit sit amet
+                    ornare est rhoncus. Vestibulum malesuada mattis sollicitudin. Duis
+                    ac lectus ac neque semper euismod imperdiet nec eros. Ut ac odio
+                    libero. Morbi a diam quis libero volutpat euismod. Etiam gravida
+                    fringilla erat quis facilisis. Morbi venenatis malesuada dapibus.
+                    Phasellus libero dui, congue a tincidunt ut, cursus in risus. Ut
+                    sapien sapien, scelerisque at hendrerit sed, vestibulum a sem. Sed
+                    vitae odio vel est aliquam suscipit ut gravida quam. Morbi a
+                    faucibus ipsum. In eros orci, feugiat et scelerisque non, faucibus
+                    et eros.
+                """
+            )
         )
 
     def testLongSectionTitles(self):
@@ -85,11 +90,13 @@ class WrappingTestCase(unittest.TestCase):
         self.assertEqual(
             self.doc.format(),
             # 70 chars ###########################################################
-            textwrap.dedent("""\
-            Section Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Pellentesque facilisis nisi vel nibh:
-              Sub-section Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque facilisis nisi vel nibh:
-                Some text
-            """)
+            textwrap.dedent(
+                """\
+                Section Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Pellentesque facilisis nisi vel nibh:
+                  Sub-section Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Pellentesque facilisis nisi vel nibh:
+                    Some text
+                """
+            )
         )

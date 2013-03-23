@@ -20,6 +20,7 @@ import itertools
 def _wrap(text, prefix):
     return textwrap.wrap(text, initial_indent=prefix, subsequent_indent=prefix)
 
+
 def _insertWhiteLines(blocks):
     insert = False
     for block in blocks:
@@ -28,6 +29,7 @@ def _insertWhiteLines(blocks):
         insert = True
         for line in block:
             yield line
+
 
 class Container:
     def __init__(self):

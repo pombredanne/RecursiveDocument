@@ -18,6 +18,7 @@ import textwrap
 
 from recdoc import *
 
+
 class IndentationTestCase(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
@@ -33,7 +34,8 @@ class IndentationTestCase(unittest.TestCase):
         )
         self.assertEqual(
             self.doc.format(),
-            textwrap.dedent("""\
+            textwrap.dedent(
+                """\
                 First section:
                   Some text
                 """
@@ -48,7 +50,8 @@ class IndentationTestCase(unittest.TestCase):
         )
         self.assertEqual(
             self.doc.format(),
-            textwrap.dedent("""\
+            textwrap.dedent(
+                """\
                 First section:
                   Some text
 
@@ -76,7 +79,8 @@ class IndentationTestCase(unittest.TestCase):
         )
         self.assertEqual(
             self.doc.format(),
-            textwrap.dedent("""\
+            textwrap.dedent(
+                """\
                 Section A:
                   Text A.1
 
@@ -110,7 +114,8 @@ class IndentationTestCase(unittest.TestCase):
         )
         self.assertEqual(
             self.doc.format(),
-            textwrap.dedent("""\
+            textwrap.dedent(
+                """\
                 Some text
 
                 Section title:
@@ -128,7 +133,8 @@ class IndentationTestCase(unittest.TestCase):
         )
         self.assertEqual(
             self.doc.format(),
-            textwrap.dedent("""\
+            textwrap.dedent(
+                """\
                 Section title:
                   Section text
 
@@ -145,7 +151,8 @@ class IndentationTestCase(unittest.TestCase):
         )
         self.assertEqual(
             self.doc.format(),
-            textwrap.dedent("""\
+            textwrap.dedent(
+                """\
                 Empty section title:
 
                 Some text
@@ -165,27 +172,28 @@ class IndentationTestCase(unittest.TestCase):
         )
         self.assertEqual(
             self.doc.format(),
-            textwrap.dedent("""\
+            textwrap.dedent(
+                """\
                 Section A:
                   Section A.1:
                     Text A.1.a
-                
+
                     Text A.1.b
-                
+
                   Section A.2:
                     Text A.2.a
-                
+
                     Text A.2.b
-                
+
                 Section B:
                   Section B.1:
                     Text B.1.a
-                
+
                     Text B.1.b
-                
+
                   Section B.2:
                     Text B.2.a
-                
+
                     Text B.2.b
                 """
             )
