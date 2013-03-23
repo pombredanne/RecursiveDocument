@@ -27,8 +27,10 @@ class DocumentTestCase(unittest.TestCase):
         self.assertEqual(self.doc.format(), "\n")
 
     def testOneSectionWithOneParagraph(self):
-        section = self.doc.add(Section("First section"))
-        section.add(Paragraph("Some text"))
+        self.doc.add(
+            Section("First section")
+            .add(Paragraph("Some text"))
+        )
         self.assertEqual(
             self.doc.format(),
             textwrap.dedent("""\
@@ -39,33 +41,39 @@ class DocumentTestCase(unittest.TestCase):
         )
 
     def testOneSectionWithTwoParagraphs(self):
-        section = self.doc.add(Section("First section"))
-        section.add(Paragraph("Some text"))
-        section.add(Paragraph("Some other text"))
+        self.doc.add(
+            Section("First section")
+            .add(Paragraph("Some text"))
+            .add(Paragraph("Some other text"))
+        )
         self.assertEqual(
             self.doc.format(),
             textwrap.dedent("""\
                 First section:
                   Some text
-                
+
                   Some other text
                 """
             )
         )
 
     def testSeveralSectionsWithSeveralParagraphs(self):
-        section = self.doc.add(Section("Section A"))
-        section.add(Paragraph("Text A.1"))
-        section.add(Paragraph("Text A.2"))
-        section.add(Paragraph("Text A.3"))
-        section = self.doc.add(Section("Section B"))
-        section.add(Paragraph("Text B.1"))
-        section.add(Paragraph("Text B.2"))
-        section.add(Paragraph("Text B.3"))
-        section = self.doc.add(Section("Section C"))
-        section.add(Paragraph("Text C.1"))
-        section.add(Paragraph("Text C.2"))
-        section.add(Paragraph("Text C.3"))
+        self.doc.add(
+            Section("Section A")
+            .add(Paragraph("Text A.1"))
+            .add(Paragraph("Text A.2"))
+            .add(Paragraph("Text A.3"))
+        ).add(
+            Section("Section B")
+            .add(Paragraph("Text B.1"))
+            .add(Paragraph("Text B.2"))
+            .add(Paragraph("Text B.3"))
+        ).add(
+            Section("Section C")
+            .add(Paragraph("Text C.1"))
+            .add(Paragraph("Text C.2"))
+            .add(Paragraph("Text C.3"))
+        )
         self.assertEqual(
             self.doc.format(),
             textwrap.dedent("""\
@@ -94,8 +102,12 @@ class DocumentTestCase(unittest.TestCase):
         )
 
     def testParagraphThenSection(self):
-        self.doc.add(Paragraph("Some text"))
-        self.doc.add(Section("Section title")).add(Paragraph("Section text"))
+        self.doc.add(
+            Paragraph("Some text")
+        ).add(
+            Section("Section title")
+            .add(Paragraph("Section text"))
+        )
         self.assertEqual(
             self.doc.format(),
             textwrap.dedent("""\
@@ -108,8 +120,12 @@ class DocumentTestCase(unittest.TestCase):
         )
 
     def testSectionThenParagraph(self):
-        self.doc.add(Section("Section title")).add(Paragraph("Section text"))
-        self.doc.add(Paragraph("Some text"))
+        self.doc.add(
+            Section("Section title")
+            .add(Paragraph("Section text"))
+        ).add(
+            Paragraph("Some text")
+        )
         self.assertEqual(
             self.doc.format(),
             textwrap.dedent("""\

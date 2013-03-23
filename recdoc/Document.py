@@ -20,7 +20,7 @@ class Container:
 
     def add(self, newContent):
         self.__contents.append(newContent)
-        return newContent
+        return self
 
     def _formatContents(self, prefix):
         return "\n\n".join(prefix + c.format() for c in self.__contents)
