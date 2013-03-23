@@ -72,3 +72,23 @@ class DocumentTestCase(unittest.TestCase):
                 et eros.
             """)
         )
+
+    def testLongSectionTitles(self):
+        self.doc.add(
+            Section("Section Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis nisi vel nibh luctus sit amet semper tellus")
+            .add(
+                Section("Sub-section Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque facilisis nisi vel nibh luctus sit amet semper tellus")
+                .add(Paragraph("Some text"))
+            )
+        )
+        self.assertEqual(
+            self.doc.format(),
+            # 70 chars ###########################################################
+            textwrap.dedent("""\
+            Section Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Pellentesque facilisis nisi vel nibh luctus sit amet semper tellus:
+              Sub-section Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Pellentesque facilisis nisi vel nibh luctus sit amet semper tellus:
+                Some text
+            """)
+        )

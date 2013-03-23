@@ -41,7 +41,7 @@ class Section(Container):
         self.__title = title
 
     def _format(self, prefix):
-        return prefix + self.__title + ":\n" + self._formatContents(prefix + "  ")
+        return "\n".join(textwrap.wrap(self.__title + ":", initial_indent=prefix, subsequent_indent=prefix)) + "\n" + self._formatContents(prefix + "  ")
 
 
 class Document(Container):
