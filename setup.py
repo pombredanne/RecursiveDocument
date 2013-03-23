@@ -46,6 +46,6 @@ if __name__ == "__main__":
             "Operating System :: OS Independent",
             "Programming Language :: Python",
         ],
-        test_suite="recdoc.tests",
+        test_suite="recdoc.tests.AllTests",
         use_2to3=True
     )

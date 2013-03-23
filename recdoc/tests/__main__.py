@@ -15,7 +15,7 @@
 
 import unittest
 
-from .IndentationTestCase import IndentationTestCase
-from .WrappingTestCase import WrappingTestCase
+import recdoc.tests.AllTests
 
-unittest.main()
+if __name__ == "__main__":
+    unittest.main(module=recdoc.tests.AllTests)
