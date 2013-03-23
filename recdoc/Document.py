@@ -68,13 +68,24 @@ class Document(Container):
 class DefinitionList:
     def __init__(self):
         self.__items = []
-        self.__lengthOfLongestItem = 0
 
     def add(self, name, definition):
-        self.__lengthOfLongestItem = max(self.__lengthOfLongestItem, len(name))
         self.__items.append((name, definition))
         return self
 
     def _format(self, prefix):
-        for (name, definition) in self.__items:
-            yield prefix + name + ((self.__lengthOfLongestItem - len(name)) * " " + "  " + definition).rstrip()
+        lengthOfLongestItem = max(itertools.chain([0], (len(name) for name, _ in self.__items if len(name) + len(prefix) < 25)))
+        return itertools.chain.from_iterable(self.__formatItem(name, definition, lengthOfLongestItem, prefix) for name, definition in self.__items)
+
+    def __formatItem(self, name, definition, lengthOfLongestItem, prefix):
+        if len(definition) == 0:
+            yield prefix + name
+        else:
+            if len(name) + len(prefix) < 25:
+                for line in textwrap.wrap(definition, initial_indent=prefix + name + (lengthOfLongestItem - len(name) + 2) * " ", subsequent_indent=prefix + (lengthOfLongestItem + 2) * " "):
+                    yield line
+            else:
+                yield prefix + name
+                indent = prefix + (lengthOfLongestItem + 2) * " "
+                for line in textwrap.wrap(definition, initial_indent=indent, subsequent_indent=indent):
+                    yield line
