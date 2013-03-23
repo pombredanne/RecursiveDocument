@@ -16,6 +16,9 @@
 import textwrap
 
 
+def _wrap(text, prefix):
+    return "\n".join(textwrap.wrap(text, initial_indent=prefix, subsequent_indent=prefix))
+
 class Container:
     def __init__(self):
         self.__contents = []
@@ -32,7 +35,7 @@ class Paragraph:
         self.__text = text
 
     def _format(self, prefix):
-        return "\n".join(textwrap.wrap(self.__text, initial_indent=prefix, subsequent_indent=prefix))
+        return _wrap(self.__text, prefix)
 
 
 class Section(Container):
@@ -41,7 +44,7 @@ class Section(Container):
         self.__title = title
 
     def _format(self, prefix):
-        return "\n".join(textwrap.wrap(self.__title + ":", initial_indent=prefix, subsequent_indent=prefix)) + "\n" + self._formatContents(prefix + "  ")
+        return _wrap(self.__title + ":", prefix) + "\n" + self._formatContents(prefix + "  ")
 
 
 class Document(Container):
