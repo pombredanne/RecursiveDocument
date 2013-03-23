@@ -29,6 +29,10 @@ if __name__ == "__main__":
         author_email="vincent@vincent-jacques.net",
         url="http://jacquev6.github.com/RecursiveDocument",
         long_description=textwrap.dedent("""\
+            RecursiveDocument formats, in a console-friendly and human-readable way, a document specified through its structure (sections, sub-sections, paragraphs, etc.).
+
+            It is especially well suited for printing help messages for command-line executables.
+
             Reference documentation
             =======================
 
@@ -38,13 +42,21 @@ if __name__ == "__main__":
             "recdoc.tests",
         ],
         package_data={
-            "recdoc": ["ReadMe.rst", "COPYING*"],
+            "recdoc": ["COPYING*"],
         },
         classifiers=[
-            "Development Status :: 1 - Planning",
+            "Development Status :: 4 - Beta",
             "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)",
             "Operating System :: OS Independent",
             "Programming Language :: Python",
+            "Programming Language :: Python :: 2",
+            "Programming Language :: Python :: 2.7",
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.3",
+            "Topic :: Text Processing",
+            "Topic :: Documentation",
+            "Topic :: Software Development :: Documentation",
+            "Environment :: Console",
         ],
         test_suite="recdoc.tests.AllTests",
         use_2to3=True

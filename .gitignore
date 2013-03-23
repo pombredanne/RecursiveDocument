@@ -4,3 +4,4 @@
 /MANIFEST
 /RecursiveDocument.egg-info/
 /.coverage
+/doc/build/
