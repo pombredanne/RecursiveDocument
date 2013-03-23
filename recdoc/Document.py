@@ -63,3 +63,16 @@ class Section(Container):
 class Document(Container):
     def format(self):
         return "\n".join(self._formatContents("")) + "\n"
+
+
+class DefinitionList:
+    def __init__(self):
+        self.__items = []
+
+    def add(self, name, definition):
+        self.__items.append((name, definition))
+        return self
+
+    def _format(self, prefix):
+        for (name, definition) in self.__items:
+            yield name + "  " + definition
