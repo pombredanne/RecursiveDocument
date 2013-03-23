@@ -38,6 +38,7 @@ if __name__ == "__main__":
             See http://jacquev6.github.com/RecursiveDocument"""),
         packages=[
             "recdoc",
+            "recdoc.tests",
         ],
         package_data={
             "recdoc": ["ReadMe.rst", "COPYING*"],
