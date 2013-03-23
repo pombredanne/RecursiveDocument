@@ -1,3 +1,3 @@
-from .IndentationTestCase import *
-from .WrappingTestCase import *
-from .DefinitionListTestCase import *
+from .IndentationTestCase import IndentationTestCase
+from .WrappingTestCase import WrappingTestCase
+from .DefinitionListTestCase import DefinitionListTestCase

@@ -13,4 +13,4 @@
 
 # You should have received a copy of the GNU Lesser General Public License along with RecursiveDocument.  If not, see <http://www.gnu.org/licenses/>.
 
-from .Document import *
+from .Document import Document, Section, Paragraph, DefinitionList

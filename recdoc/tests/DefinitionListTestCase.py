@@ -16,7 +16,7 @@
 import unittest
 import textwrap
 
-from recdoc import *
+from recdoc import Document, Section, DefinitionList
 
 
 class DefinitionListTestCase(unittest.TestCase):
