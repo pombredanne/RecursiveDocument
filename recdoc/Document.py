@@ -13,6 +13,35 @@
 
 # You should have received a copy of the GNU Lesser General Public License along with RecursiveDocument.  If not, see <http://www.gnu.org/licenses/>.
 
-class Document():
+
+class Container:
+    def __init__(self):
+        self.__contents = []
+
+    def add(self, newContent):
+        self.__contents.append(newContent)
+        return newContent
+
+    def _formatContents(self):
+        return "".join(c.format() for c in self.__contents)
+
+class Paragraph:
+    def __init__(self, text):
+        self.__text = text
+
     def format(self):
-        return ""
+        return self.__text
+
+
+class Section(Container):
+    def __init__(self, title):
+        Container.__init__(self)
+        self.__title = title
+
+    def format(self):
+        return self.__title + ":\n  " + self._formatContents() + "\n"
+
+
+class Document(Container):
+    def format(self):
+        return self._formatContents()

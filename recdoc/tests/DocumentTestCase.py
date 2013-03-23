@@ -14,13 +14,26 @@
 # You should have received a copy of the GNU Lesser General Public License along with RecursiveDocument.  If not, see <http://www.gnu.org/licenses/>.
 
 import unittest
+import textwrap
 
-import recdoc
+from recdoc import *
 
 class DocumentTestCase(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.doc = recdoc.Document()
+        self.doc = Document()
 
     def testFormatEmptyDocument(self):
         self.assertEqual(self.doc.format(), "")
+
+    def testFormatDocumentWithOneSection(self):
+        section = self.doc.add(Section("First section"))
+        section.add(Paragraph("Some text"))
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent("""\
+                First section:
+                  Some text
+                """
+            )
+        )
