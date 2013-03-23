@@ -15,7 +15,7 @@
 
 import unittest
 
-import recdoc.tests.AllTests
+from . import AllTests
 
 if __name__ == "__main__":
-    unittest.main(module=recdoc.tests.AllTests)
+    unittest.main(module=AllTests)

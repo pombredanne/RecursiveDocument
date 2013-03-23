@@ -2,6 +2,6 @@
 /dist/
 /build/
 /MANIFEST
-/RecursiveDocument.egg-info/
+/*.egg-info/
 /.coverage
 /doc/build/
