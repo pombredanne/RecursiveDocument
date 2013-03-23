@@ -17,8 +17,9 @@ import textwrap
 import itertools
 
 
-def _wrap(text, prefix):
-    return textwrap.wrap(text, initial_indent=prefix, subsequent_indent=prefix)
+def _wrap(text, prefixLength):
+    indent = prefixLength * " "
+    return textwrap.wrap(text, initial_indent=indent, subsequent_indent=indent)
 
 
 def _insertWhiteLines(blocks):
@@ -39,16 +40,16 @@ class Container:
         self.__contents.append(newContent)
         return self
 
-    def _formatContents(self, prefix):
-        return _insertWhiteLines(c._format(prefix) for c in self.__contents)
+    def _formatContents(self, prefixLength):
+        return _insertWhiteLines(c._format(prefixLength) for c in self.__contents)
 
 
 class Paragraph:
     def __init__(self, text):
         self.__text = text
 
-    def _format(self, prefix):
-        return _wrap(self.__text, prefix)
+    def _format(self, prefixLength):
+        return _wrap(self.__text, prefixLength)
 
 
 class Section(Container):
@@ -56,16 +57,18 @@ class Section(Container):
         Container.__init__(self)
         self.__title = title
 
-    def _format(self, prefix):
-        return itertools.chain(_wrap(self.__title + ":", prefix), self._formatContents(prefix + "  "))
+    def _format(self, prefixLength):
+        return itertools.chain(_wrap(self.__title + ":", prefixLength), self._formatContents(prefixLength + 2))
 
 
 class Document(Container):
     def format(self):
-        return "\n".join(self._formatContents("")) + "\n"
+        return "\n".join(self._formatContents(0)) + "\n"
 
 
 class DefinitionList:
+    __maxDefinitionPrefixLength = 24
+
     def __init__(self):
         self.__items = []
 
@@ -73,19 +76,39 @@ class DefinitionList:
         self.__items.append((name, definition))
         return self
 
-    def _format(self, prefix):
-        lengthOfLongestItem = max(itertools.chain([0], (len(name) for name, _ in self.__items if len(name) + len(prefix) < 25)))
-        return itertools.chain.from_iterable(self.__formatItem(name, definition, lengthOfLongestItem, prefix) for name, definition in self.__items)
+    def _format(self, prefixLength):
+        definitionPrefixLength = 2 + max(
+            itertools.chain(
+                [prefixLength],
+                (
+                    len(prefixedName)
+                    for prefixedName, definition, shortEnough in self.__prefixedItems(prefixLength)
+                    if shortEnough
+                )
+            )
+        )
+        return itertools.chain.from_iterable(
+            self.__formatItem(item, definitionPrefixLength)
+            for item in self.__prefixedItems(prefixLength)
+        )
 
-    def __formatItem(self, name, definition, lengthOfLongestItem, prefix):
-        if len(definition) == 0:
-            yield prefix + name
+    def __prefixedItems(self, prefixLength):
+        for name, definition in self.__items:
+            prefixedName = prefixLength * " " + name
+            shortEnough = len(prefixedName) <= self.__maxDefinitionPrefixLength
+            yield prefixedName, definition, shortEnough
+
+    def __formatItem(self, item, definitionPrefixLength):
+        prefixedName, definition, shortEnough = item
+        subsequentIndent = definitionPrefixLength * " "
+
+        nameMustBeOnItsOwnLine = len(definition) == 0 or not shortEnough
+
+        if nameMustBeOnItsOwnLine:
+            yield prefixedName
+            initialIndent = subsequentIndent
         else:
-            if len(name) + len(prefix) < 25:
-                for line in textwrap.wrap(definition, initial_indent=prefix + name + (lengthOfLongestItem - len(name) + 2) * " ", subsequent_indent=prefix + (lengthOfLongestItem + 2) * " "):
-                    yield line
-            else:
-                yield prefix + name
-                indent = prefix + (lengthOfLongestItem + 2) * " "
-                for line in textwrap.wrap(definition, initial_indent=indent, subsequent_indent=indent):
-                    yield line
+            initialIndent = prefixedName + (definitionPrefixLength - len(prefixedName)) * " "
+
+        for line in textwrap.wrap(definition, initial_indent=initialIndent, subsequent_indent=subsequentIndent):
+            yield line
