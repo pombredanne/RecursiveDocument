@@ -13,6 +13,8 @@
 
 # You should have received a copy of the GNU Lesser General Public License along with RecursiveDocument.  If not, see <http://www.gnu.org/licenses/>.
 
+import textwrap
+
 
 class Container:
     def __init__(self):
@@ -30,7 +32,7 @@ class Paragraph:
         self.__text = text
 
     def _format(self, prefix):
-        return prefix + self.__text
+        return "\n".join(textwrap.wrap(self.__text, initial_indent=prefix, subsequent_indent=prefix))
 
 
 class Section(Container):
