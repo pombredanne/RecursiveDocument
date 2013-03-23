@@ -1,0 +1,6 @@
+*.pyc
+/dist/
+/build/
+/MANIFEST
+/RecursiveDocument.egg-info/
+/.coverage
