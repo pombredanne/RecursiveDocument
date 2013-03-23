@@ -47,6 +47,7 @@ class DocumentTestCase(unittest.TestCase):
             textwrap.dedent("""\
                 First section:
                   Some text
+                
                   Some other text
                 """
             )
@@ -70,15 +71,23 @@ class DocumentTestCase(unittest.TestCase):
             textwrap.dedent("""\
                 Section A:
                   Text A.1
+
                   Text A.2
+
                   Text A.3
+
                 Section B:
                   Text B.1
+
                   Text B.2
+
                   Text B.3
+
                 Section C:
                   Text C.1
+
                   Text C.2
+
                   Text C.3
                 """
             )
@@ -91,6 +100,7 @@ class DocumentTestCase(unittest.TestCase):
             self.doc.format(),
             textwrap.dedent("""\
                 Some text
+
                 Section title:
                   Section text
                 """
@@ -105,6 +115,7 @@ class DocumentTestCase(unittest.TestCase):
             textwrap.dedent("""\
                 Section title:
                   Section text
+
                 Some text
                 """
             )

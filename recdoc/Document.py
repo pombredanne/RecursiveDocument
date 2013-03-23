@@ -23,7 +23,7 @@ class Container:
         return newContent
 
     def _formatContents(self, prefix):
-        return "\n".join(prefix + c.format() for c in self.__contents)
+        return "\n\n".join(prefix + c.format() for c in self.__contents)
 
 class Paragraph:
     def __init__(self, text):
