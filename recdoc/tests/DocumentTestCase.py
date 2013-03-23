@@ -13,4 +13,14 @@
 
 # You should have received a copy of the GNU Lesser General Public License along with RecursiveDocument.  If not, see <http://www.gnu.org/licenses/>.
 
-from .Document import Document
+import unittest
+
+import recdoc
+
+class DocumentTestCase(unittest.TestCase):
+    def setUp(self):
+        unittest.TestCase.setUp(self)
+        self.doc = recdoc.Document()
+
+    def testFormatEmptyDocument(self):
+        self.assertEqual(self.doc.format(), "")

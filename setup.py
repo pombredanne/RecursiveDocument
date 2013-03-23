@@ -16,9 +16,6 @@
 
 import setuptools
 import textwrap
-import subprocess
-import shutil
-import os.path
 
 version = "0.1.0"
 
@@ -49,6 +46,6 @@ if __name__ == "__main__":
             "Operating System :: OS Independent",
             "Programming Language :: Python",
         ],
-        test_suite="recdoc.tests.AllTests",
+        test_suite="recdoc.tests",
         use_2to3=True
     )
