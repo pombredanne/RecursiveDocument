@@ -17,14 +17,14 @@
 import setuptools
 import textwrap
 
-version = "0.1.0"
+version = "0.2.0"
 
 
 if __name__ == "__main__":
     setuptools.setup(
         name="RecursiveDocument",
         version=version,
-        description="",
+        description="Format, in a console-friendly and human-readable way, a document specified through its structure",
         author="Vincent Jacques",
         author_email="vincent@vincent-jacques.net",
         url="http://jacquev6.github.com/RecursiveDocument",
