@@ -137,6 +137,22 @@ class IndentationTestCase(unittest.TestCase):
             )
         )
 
+    def testEmptySection(self):
+        self.doc.add(
+            Section("Empty section title")
+        ).add(
+            Paragraph("Some text")
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent("""\
+                Empty section title:
+
+                Some text
+                """
+            )
+        )
+
     def testImbricatedSections(self):
         self.doc.add(
             Section("Section A")

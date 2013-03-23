@@ -14,10 +14,20 @@
 # You should have received a copy of the GNU Lesser General Public License along with RecursiveDocument.  If not, see <http://www.gnu.org/licenses/>.
 
 import textwrap
+import itertools
 
 
 def _wrap(text, prefix):
-    return "\n".join(textwrap.wrap(text, initial_indent=prefix, subsequent_indent=prefix))
+    return textwrap.wrap(text, initial_indent=prefix, subsequent_indent=prefix)
+
+def _insertWhiteLines(blocks):
+    insert = False
+    for block in blocks:
+        if insert:
+            yield ""
+        insert = True
+        for line in block:
+            yield line
 
 class Container:
     def __init__(self):
@@ -28,7 +38,8 @@ class Container:
         return self
 
     def _formatContents(self, prefix):
-        return "\n\n".join(c._format(prefix) for c in self.__contents)
+        return _insertWhiteLines(c._format(prefix) for c in self.__contents)
+
 
 class Paragraph:
     def __init__(self, text):
@@ -44,9 +55,9 @@ class Section(Container):
         self.__title = title
 
     def _format(self, prefix):
-        return _wrap(self.__title + ":", prefix) + "\n" + self._formatContents(prefix + "  ")
+        return itertools.chain(_wrap(self.__title + ":", prefix), self._formatContents(prefix + "  "))
 
 
 class Document(Container):
     def format(self):
-        return self._formatContents("") + "\n"
+        return "\n".join(self._formatContents("")) + "\n"
