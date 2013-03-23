@@ -32,8 +32,8 @@ class WrappingTestCase(unittest.TestCase):
         self.doc.add(Paragraph(self.__lorem))
         self.assertEqual(
             self.doc.format(),
-            # 70 chars ###########################################################
             textwrap.dedent(
+                # 70 chars ###########################################################
                 """\
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
                 facilisis nisi vel nibh luctus sit amet semper tellus gravida. Proin
@@ -56,8 +56,8 @@ class WrappingTestCase(unittest.TestCase):
         self.doc.add(Section("Section").add(Section("Sub-section").add(Paragraph(self.__lorem))))
         self.assertEqual(
             self.doc.format(),
-            # 70 chars ###########################################################
             textwrap.dedent(
+                # 70 chars ###########################################################
                 """\
                 Section:
                   Sub-section:
@@ -89,8 +89,8 @@ class WrappingTestCase(unittest.TestCase):
         )
         self.assertEqual(
             self.doc.format(),
-            # 70 chars ###########################################################
             textwrap.dedent(
+                # 70 chars ###########################################################
                 """\
                 Section Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Pellentesque facilisis nisi vel nibh:
