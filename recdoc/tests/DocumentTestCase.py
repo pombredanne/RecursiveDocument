@@ -136,3 +136,41 @@ class DocumentTestCase(unittest.TestCase):
                 """
             )
         )
+
+    def testImbricatedSections(self):
+        self.doc.add(
+            Section("Section A")
+            .add(Section("Section A.1").add(Paragraph("Text A.1.a")).add(Paragraph("Text A.1.b")))
+            .add(Section("Section A.2").add(Paragraph("Text A.2.a")).add(Paragraph("Text A.2.b")))
+        ).add(
+            Section("Section B")
+            .add(Section("Section B.1").add(Paragraph("Text B.1.a")).add(Paragraph("Text B.1.b")))
+            .add(Section("Section B.2").add(Paragraph("Text B.2.a")).add(Paragraph("Text B.2.b")))
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent("""\
+                Section A:
+                  Section A.1:
+                    Text A.1.a
+                
+                    Text A.1.b
+                
+                  Section A.2:
+                    Text A.2.a
+                
+                    Text A.2.b
+                
+                Section B:
+                  Section B.1:
+                    Text B.1.a
+                
+                    Text B.1.b
+                
+                  Section B.2:
+                    Text B.2.a
+                
+                    Text B.2.b
+                """
+            )
+        )
