@@ -40,3 +40,61 @@ class DefinitionListTestCase(unittest.TestCase):
                 """
             )
         )
+
+    def testItemsWithDifferentLengths(self):
+        self.doc.add(
+            DefinitionList()
+            .add("Item 1", "Definition 1")
+            .add("Longer item 2", "Definition 2")
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent(
+                """\
+                Item 1         Definition 1
+                Longer item 2  Definition 2
+                """
+            )
+        )
+
+    def testWithinSubSection(self):
+        self.doc.add(
+            Section("Section")
+            .add(
+                Section("Sub-section")
+                .add(
+                    DefinitionList()
+                    .add("Item 1", "Definition 1")
+                    .add("Longer item 2", "Definition 2")
+                )
+            )
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent(
+                """\
+                Section:
+                  Sub-section:
+                    Item 1         Definition 1
+                    Longer item 2  Definition 2
+                """
+            )
+        )
+
+    def testEmptyDefinition(self):
+        self.doc.add(
+            DefinitionList()
+            .add("Longer item 1", "Definition 1")
+            .add("Item 2", "")
+            .add("Longer item 3", "")
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent(
+                """\
+                Longer item 1  Definition 1
+                Item 2
+                Longer item 3
+                """
+            )
+        )

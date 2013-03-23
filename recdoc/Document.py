@@ -68,11 +68,13 @@ class Document(Container):
 class DefinitionList:
     def __init__(self):
         self.__items = []
+        self.__lengthOfLongestItem = 0
 
     def add(self, name, definition):
+        self.__lengthOfLongestItem = max(self.__lengthOfLongestItem, len(name))
         self.__items.append((name, definition))
         return self
 
     def _format(self, prefix):
         for (name, definition) in self.__items:
-            yield name + "  " + definition
+            yield prefix + name + ((self.__lengthOfLongestItem - len(name)) * " " + "  " + definition).rstrip()
