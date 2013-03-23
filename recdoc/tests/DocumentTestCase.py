@@ -24,7 +24,7 @@ class DocumentTestCase(unittest.TestCase):
         self.doc = Document()
 
     def testFormatEmptyDocument(self):
-        self.assertEqual(self.doc.format(), "")
+        self.assertEqual(self.doc.format(), "\n")
 
     def testFormatDocumentWithOneSection(self):
         section = self.doc.add(Section("First section"))
@@ -34,6 +34,20 @@ class DocumentTestCase(unittest.TestCase):
             textwrap.dedent("""\
                 First section:
                   Some text
+                """
+            )
+        )
+
+    def testFormatDocumentWithOneSectionWithTwoParagraphs(self):
+        section = self.doc.add(Section("First section"))
+        section.add(Paragraph("Some text"))
+        section.add(Paragraph("Some other text"))
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent("""\
+                First section:
+                  Some text
+                  Some other text
                 """
             )
         )

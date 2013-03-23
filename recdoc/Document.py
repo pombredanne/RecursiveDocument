@@ -22,8 +22,8 @@ class Container:
         self.__contents.append(newContent)
         return newContent
 
-    def _formatContents(self):
-        return "".join(c.format() for c in self.__contents)
+    def _formatContents(self, prefix):
+        return "\n".join(prefix + c.format() for c in self.__contents)
 
 class Paragraph:
     def __init__(self, text):
@@ -39,9 +39,9 @@ class Section(Container):
         self.__title = title
 
     def format(self):
-        return self.__title + ":\n  " + self._formatContents() + "\n"
+        return self.__title + ":\n" + self._formatContents("  ")
 
 
 class Document(Container):
     def format(self):
-        return self._formatContents()
+        return self._formatContents("") + "\n"
