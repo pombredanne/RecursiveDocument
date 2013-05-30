@@ -102,11 +102,12 @@ class Container:
 
     def add(self, content):
         """
-        Appends content to this object. ``content`` can be any class from :mod:`recdoc` but :class:`Document`.
+        Appends content to this object. ``content`` can be ``None``, or any class from :mod:`recdoc` but :class:`Document`.
 
         Returns self to allow chaining.
         """
-        self.__contents.append(content)
+        if content is not None:
+            self.__contents.append(content)
         return self
 
     def _formatContents(self, prefixLength):

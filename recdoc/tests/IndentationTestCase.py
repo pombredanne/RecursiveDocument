@@ -27,6 +27,10 @@ class IndentationTestCase(unittest.TestCase):
     def testEmptyDocument(self):
         self.assertEqual(self.doc.format(), "\n")
 
+    def testAddNoneIsNoOp(self):
+        self.doc.add(None)
+        self.assertEqual(self.doc.format(), "\n")
+
     def testOneSectionWithOneParagraph(self):
         self.doc.add(
             Section("First section")
