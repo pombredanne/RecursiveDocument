@@ -113,6 +113,9 @@ class Container:
     def _formatContents(self, prefixLength):
         return _insertWhiteLines(c._format(prefixLength) for c in self.__contents)
 
+    def _format(self, prefixLength):
+        return self._formatContents(prefixLength)
+
 
 class Document(Container):
     """

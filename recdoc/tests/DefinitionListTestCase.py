@@ -16,7 +16,7 @@
 import unittest
 import textwrap
 
-from recdoc import Document, Section, DefinitionList, Paragraph
+from recdoc import Document, Section, DefinitionList, Paragraph, Container
 
 
 class DefinitionListTestCase(unittest.TestCase):
@@ -171,6 +171,99 @@ class DefinitionListTestCase(unittest.TestCase):
                   Item 2 (also too long, really)
                     Definition 2 Lorem ipsum dolor sit amet, consectetur adipiscing
                     elit. Pellentesque facilisis nisi vel nibh
+                """
+            )
+        )
+
+    def testContainerAsDefinition(self):
+        self.doc.add(
+            Section("Section")
+            .add(
+                DefinitionList()
+                .add("Item", Container().add(Paragraph("Para 1")).add(Paragraph("Para 2")))
+            )
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent(
+                """\
+                Section:
+                  Item  Para 1
+
+                        Para 2
+                """
+            )
+        )
+
+    def testDefinitionListAsDefinition(self):
+        self.doc.add(
+            Section("Section")
+            .add(
+                DefinitionList()
+                .add(
+                    "Item 1",
+                    DefinitionList()
+                    .add("Item A", Paragraph("Definition A"))
+                    .add("Item B", Paragraph("Definition B"))
+                )
+                .add(
+                    "Item 2",
+                    DefinitionList()
+                    .add("Item C", Paragraph("Definition C"))
+                    .add("Item D", Paragraph("Definition D"))
+                )
+            )
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent(
+                """\
+                Section:
+                  Item 1  Item A  Definition A
+                          Item B  Definition B
+                  Item 2  Item C  Definition C
+                          Item D  Definition D
+                """
+            )
+        )
+
+    def testRecursiveContainersIsSameAsFlatContainer(self):
+        self.doc.add(
+            Container()
+            .add(Paragraph("P1"))
+            .add(Paragraph("P2"))
+            .add(
+                Container()
+                .add(Paragraph("P3"))
+                .add(Paragraph("P4"))
+                .add(
+                    Container()
+                    .add(Paragraph("P5"))
+                )
+                .add(
+                    Container()
+                    .add(Paragraph("P6"))
+                )
+            )
+            .add(Paragraph("P7"))
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent(
+                """\
+                P1
+
+                P2
+
+                P3
+
+                P4
+
+                P5
+
+                P6
+
+                P7
                 """
             )
         )
