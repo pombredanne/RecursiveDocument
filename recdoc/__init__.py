@@ -164,8 +164,8 @@ class DefinitionList:
         doc.add(section)
         section.add(
             DefinitionList()
-            .add("Item", "Definition 1")
-            .add("Other item", "Definition 2")
+            .add("Item", Paragraph("Definition 1"))
+            .add("Other item", Paragraph("Definition 2"))
         )
         print doc.format()
 
@@ -216,7 +216,8 @@ class DefinitionList:
         prefixedName, definition, shortEnough = item
         subsequentIndent = definitionPrefixLength * " "
 
-        nameMustBeOnItsOwnLine = len(definition) == 0 or not shortEnough
+        # nameMustBeOnItsOwnLine = len(definition) == 0 or not shortEnough
+        nameMustBeOnItsOwnLine = not shortEnough
 
         if nameMustBeOnItsOwnLine:
             yield prefixedName
@@ -224,5 +225,12 @@ class DefinitionList:
         else:
             initialIndent = prefixedName + (definitionPrefixLength - len(prefixedName)) * " "
 
-        for line in textwrap.wrap(definition, initial_indent=initialIndent, subsequent_indent=subsequentIndent):
+        foo = True
+        for line in definition._format(definitionPrefixLength):
+            if foo:
+                foo = False
+                if not nameMustBeOnItsOwnLine:
+                    line = prefixedName + line[len(prefixedName):]
             yield line
+        if foo:
+            yield prefixedName

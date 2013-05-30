@@ -16,7 +16,7 @@
 import unittest
 import textwrap
 
-from recdoc import Document, Section, DefinitionList
+from recdoc import Document, Section, DefinitionList, Paragraph
 
 
 class DefinitionListTestCase(unittest.TestCase):
@@ -30,8 +30,8 @@ class DefinitionListTestCase(unittest.TestCase):
     def testDefinitionList(self):
         self.doc.add(
             DefinitionList()
-            .add("Item 1", "Definition 1")
-            .add("Item 2", "Definition 2")
+            .add("Item 1", Paragraph("Definition 1"))
+            .add("Item 2", Paragraph("Definition 2"))
         )
         self.assertEqual(
             self.doc.format(),
@@ -46,8 +46,8 @@ class DefinitionListTestCase(unittest.TestCase):
     def testItemsWithDifferentLengths(self):
         self.doc.add(
             DefinitionList()
-            .add("Item 1", "Definition 1")
-            .add("Longer item 2", "Definition 2")
+            .add("Item 1", Paragraph("Definition 1"))
+            .add("Longer item 2", Paragraph("Definition 2"))
         )
         self.assertEqual(
             self.doc.format(),
@@ -66,8 +66,8 @@ class DefinitionListTestCase(unittest.TestCase):
                 Section("Sub-section")
                 .add(
                     DefinitionList()
-                    .add("Item 1", "Definition 1")
-                    .add("Longer item 2", "Definition 2")
+                    .add("Item 1", Paragraph("Definition 1"))
+                    .add("Longer item 2", Paragraph("Definition 2"))
                 )
             )
         )
@@ -86,9 +86,9 @@ class DefinitionListTestCase(unittest.TestCase):
     def testEmptyDefinition(self):
         self.doc.add(
             DefinitionList()
-            .add("Longer item 1", "Definition 1")
-            .add("Item 2", "")
-            .add("Longer item 3", "")
+            .add("Longer item 1", Paragraph("Definition 1"))
+            .add("Item 2", Paragraph(""))
+            .add("Longer item 3", Paragraph(""))
         )
         self.assertEqual(
             self.doc.format(),
@@ -106,8 +106,8 @@ class DefinitionListTestCase(unittest.TestCase):
             Section("Section")
             .add(
                 DefinitionList()
-                .add("Item 1 (short enought)", "Definition 1 " + self.__shortLorem)
-                .add("Item 2", "Definition 2 " + self.__shortLorem)
+                .add("Item 1 (short enought)", Paragraph("Definition 1 " + self.__shortLorem))
+                .add("Item 2", Paragraph("Definition 2 " + self.__shortLorem))
             )
         )
         self.assertEqual(
@@ -131,8 +131,8 @@ class DefinitionListTestCase(unittest.TestCase):
             Section("Section")
             .add(
                 DefinitionList()
-                .add("Item 1 (just tooo long)", "Definition 1 " + self.__shortLorem)
-                .add("Item 2", "Definition 2 " + self.__shortLorem)
+                .add("Item 1 (just tooo long)", Paragraph("Definition 1 " + self.__shortLorem))
+                .add("Item 2", Paragraph("Definition 2 " + self.__shortLorem))
             )
         )
         self.assertEqual(
@@ -155,8 +155,8 @@ class DefinitionListTestCase(unittest.TestCase):
             Section("Section")
             .add(
                 DefinitionList()
-                .add("Item 1 (just tooo long)", "Definition 1 " + self.__shortLorem)
-                .add("Item 2 (also too long, really)", "Definition 2 " + self.__shortLorem)
+                .add("Item 1 (just tooo long)", Paragraph("Definition 1 " + self.__shortLorem))
+                .add("Item 2 (also too long, really)", Paragraph("Definition 2 " + self.__shortLorem))
             )
         )
         self.assertEqual(
