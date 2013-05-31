@@ -284,3 +284,23 @@ class IndentationTestCase(unittest.TestCase):
             Container()
         )
         self.assertEqual(self.doc.format(), "\n")
+
+    def testEmptyContainersAfterParagraph(self):
+        self.doc.add(
+            Paragraph("Foobar")
+        ).add(
+            Container()
+        ).add(
+            Container()
+        )
+        self.assertEqual(self.doc.format(), "Foobar\n")
+
+    def testEmptyContainersBeforeParagraph(self):
+        self.doc.add(
+            Container()
+        ).add(
+            Container()
+        ).add(
+            Paragraph("Foobar")
+        )
+        self.assertEqual(self.doc.format(), "Foobar\n")

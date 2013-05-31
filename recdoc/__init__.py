@@ -87,14 +87,15 @@ def _wrap(text, prefixLength):
 
 
 def _insertWhiteLines(blocks):
-    insert = False
+    hasPreviousBlock = False
     for block in blocks:
-        if insert:
-            yield ""
-        insert = False
+        firstLineOfBlock = True
         for line in block:
-            insert = True
+            if firstLineOfBlock and hasPreviousBlock:
+                yield ""
             yield line
+            firstLineOfBlock = False
+            hasPreviousBlock = True
 
 
 class Container:
