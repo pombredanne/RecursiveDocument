@@ -16,7 +16,7 @@
 import unittest
 import textwrap
 
-from recdoc import Document, Section, Paragraph
+from recdoc import Document, Section, Paragraph, Container
 
 
 class IndentationTestCase(unittest.TestCase):
@@ -202,3 +202,85 @@ class IndentationTestCase(unittest.TestCase):
                 """
             )
         )
+
+    def testRecursiveContainersIsSameAsFlatContainer(self):
+        self.doc.add(
+            Container()
+            .add(Paragraph("P1"))
+            .add(Paragraph("P2"))
+            .add(
+                Container()
+                .add(Paragraph("P3"))
+                .add(Paragraph("P4"))
+                .add(
+                    Container()
+                    .add(Paragraph("P5"))
+                )
+                .add(
+                    Container()
+                    .add(Paragraph("P6"))
+                )
+            )
+            .add(Paragraph("P7"))
+        )
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent(
+                """\
+                P1
+
+                P2
+
+                P3
+
+                P4
+
+                P5
+
+                P6
+
+                P7
+                """
+            )
+        )
+
+    def testEmptyContainer(self):
+        self.doc.add(Container())
+        self.assertEqual(self.doc.format(), "\n")
+
+    def testEmptySection2(self):
+        self.doc.add(Section("Title"))
+        self.assertEqual(
+            self.doc.format(),
+            textwrap.dedent(
+                """\
+                Title:
+                """
+            )
+        )
+
+    def testRecursiveEmptyContainers(self):
+        self.doc.add(
+            Container().add(
+                Container().add(
+                    Container().add(
+                       Container()
+                    )
+                )
+            )
+        )
+        self.assertEqual(self.doc.format(), "\n")
+
+    def testSuccessiveEmptyContainers(self):
+        self.doc.add(
+            Container()
+        ).add(
+            Container()
+        ).add(
+            Container()
+        ).add(
+            Container()
+        ).add(
+            Container()
+        )
+        self.assertEqual(self.doc.format(), "\n")

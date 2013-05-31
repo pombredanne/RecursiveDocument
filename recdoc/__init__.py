@@ -91,8 +91,9 @@ def _insertWhiteLines(blocks):
     for block in blocks:
         if insert:
             yield ""
-        insert = True
+        insert = False
         for line in block:
+            insert = True
             yield line
 
 
